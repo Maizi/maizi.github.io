@@ -188,6 +188,83 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Javascript-获取服务器时间" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/25/Javascript-获取服务器时间/" class="article-date">
+  	<time datetime="2015-11-25T05:49:11.000Z" itemprop="datePublished">2015-11-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/25/Javascript-获取服务器时间/">Javascript 获取服务器时间</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景">背景</h3><p>单页操作中，通常我们需要获取当前的时间节点，如倒计时操作。Javascript提供了Date()对象来获取客户端时间，但是客户端时间并不是恒定的，用户可以自行更改时间，这就导致每个用户的时间不一致。此时，我们需要一个恒定的服务器时间来保持用户见到的时间一致。<br>服务器的时间，通常由后台程序通过php、jsp等返回，但仅仅为了一个时间架一个后台程序，这是浪费生命的操作，绝不提倡。<br>目前，发现的最好的方法是ajax获取http的头部信息，由此来获取服务器时间。  </p>
+<h3 id="原理">原理</h3><p>下图为服务器响应请求返回的静态页面的HTTP头部信息，可以直接用ajax获取头部信息里的Date信息。<br><img src="\img\archives\20151125\ajax-header-response.jpg">  </p>
+<h3 id="实现">实现</h3><h5 id="Javascript版">Javascript版</h5><pre><code class="python">var xhr = new XMLHttpRequest();   
+<span class="keyword">if</span>( !xhr ){   
+  xhr = new ActiveXObject(<span class="string">'Microsoft.XMLHTTP'</span>);
+}   
+xhr.open(<span class="string">'HEAD'</span>,location.href,true);   
+xhr.onreadystatechange=function(){   
+    <span class="keyword">if</span>( xhr.readyState == <span class="number">4</span> &amp;&amp; xhr.status == <span class="number">200</span> ){   
+        alert(xhr.getResponseHeader(<span class="string">"Date"</span>));   
+    }   
+}   
+xhr.send(null);
+</code></pre>
+<p>当前服务器时间：<span id="J_serverTime"></span></p>
+<script>
+var xhr = new XMLHttpRequest();   
+if( !xhr ){   
+  //兼容处理  
+}   
+xhr.open("HEAD",location.href,true);   
+xhr.onreadystatechange=function(){   
+    if( xhr.readyState == 4 && xhr.status == 200 ){  
+        document.getElementById('J_serverTime').innerHTML = xhr.getResponseHeader("Date");
+    }   
+}   
+xhr.send(null);
+</script>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
